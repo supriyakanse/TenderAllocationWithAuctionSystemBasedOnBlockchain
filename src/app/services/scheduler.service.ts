@@ -13,7 +13,7 @@ export class SchedulerService {
   constructor(private firebaseConfigService: FirebaseConfigService) { }
 
   startScheduler(): Observable<any> {
-    return timer(0, 5 * 60 * 1000).pipe(
+    return timer(0, 20 * 60 * 1000).pipe(
       switchMap(() => {
         return this.removeAllocatedEntries();
       })
