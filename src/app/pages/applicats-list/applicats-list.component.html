@@ -1,0 +1,57 @@
+<app-nav-bar-admin></app-nav-bar-admin>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <label for="bidAmountFilter">Bid Amount:</label>
+      <input id="bidAmountFilter" placeholder="Enter Upper bound of bid amount"   type="number" [(ngModel)]="bidAmountFilter" class="form-control">
+    </div>
+    <div class="col">
+      <label for="etaFilter">ETA (in days):</label>
+      <input id="etaFilter" placeholder="Enter Upper bound of ETA" type="number"  [(ngModel)]="etaFilter" class="form-control">
+    </div>
+    <div class="col">
+      <button (click)="applyFilters()" class="btn btn-primary mt-4">Apply Filters</button>
+    </div>
+  </div>
+  <table class="table table-hover top-margin">
+    <thead>
+      <th>Nonce</th>
+      <th>Prev Hash</th>
+      <th>Applicant Email</th>
+      <th>Bid amount</th>
+      <th>Timestamp</th>
+      <th>Hash</th>
+      <th>Bid Type</th>
+      <th>ETA</th>
+      <th>Select</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let gr of filteredList; let i = index" [attr.data-index]="i">
+        <ng-container *ngIf="gr.bidType !='finalBid'">
+          <td>{{gr.nonce}}</td>
+          <td>{{gr.prevHash.substring(0,7)}}</td>
+          <td>{{gr.applicantEmail}}</td>
+          <td>{{gr.bidAmount}}</td>
+          <td>{{gr.timeStamp.substring(0,24)}}</td>
+          <td>{{gr.hash.substring(0,7)}}</td>
+          <td>{{gr.bidType}}</td>
+          <td>{{gr.eta}}</td>
+          <td>
+            <button (click)="onUpdateSelection(gr.applicantEmail, i)" [disabled]="gr.nonce == 0" class="btn btn-outline-dark">
+              {{ gr.selected? 'Unselect' : 'Select' }}
+            </button>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <button type="submit" (click)="sendNotification()" 
+      class="btn btn-primary">Send Notifications</button>
+    <hr>
+    <button type="submit" (click)="finalizingWork()"
+      class="btn btn-primary">Finalize work</button>
+  </div>
+  <br><br>
+</div>

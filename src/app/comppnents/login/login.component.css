@@ -1,0 +1,77 @@
+
+.imgClass{border-radius: 30px;
+    background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    box-shadow:  17px 17px 31px #9f9f9f,
+                 -17px -17px 31px #ffffff;
+}
+      .login-form-custom {
+        width: 500px;
+        margin: 0 auto;
+        font-family: Tahoma, Geneva, sans-serif;
+
+      }
+      .login-form-custom h1 {
+        text-align: center;
+        color: #4d4d4d;
+        font-family: Tahoma;
+        font-size: 24px;
+        padding: 20px 0 20px 0;
+      }
+      .login-form-custom input[type="password"],
+      .login-form-custom input[type="text"] {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #dddddd;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+      }
+      .login-form-custom input[type="email"] {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #dddddd;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+      }
+      .btnSubmit {
+        width: 100%;
+        padding: 15px;
+        background-color: #535b63;
+        border: 0;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-weight: bold;
+        color: #ffffff;
+      }
+      #inner {
+        display: table;
+        margin: 0 auto;
+      }
+
+      a.four:link {
+        text-align: center;
+        color: #4d4d4d;
+        font-size: 13px;
+        padding: 10px 10px 10px 10px;
+        font-family: Tahoma;
+        text-decoration: none;
+      }
+      a.four:visited {
+        text-decoration: none;
+      }
+      a.four:hover {
+        text-decoration: underline;
+      }
+
+      .padding-height {
+        height: 8vh;
+      }
+      .padding-height-link {
+        height: 2vh;
+      }
+      #outer {
+        width: 100%;
+      }
+
+      .inner-element {
+        padding-top: 5vh;
+      }

@@ -1,0 +1,37 @@
+<app-nav-bar-admin></app-nav-bar-admin>
+<div class="container">
+  <div class="form-group">
+    <label for="statusFilter">Show :</label>
+    <select id="statusFilter" class="form-control" (change)="onFilterChange($event)">
+      <option value="">All</option>
+      <option value="allocated">Allocated</option>
+      <option value="active">Active</option>
+    </select>
+  </div>
+
+  <table class="table table-hover top-margin">
+    <thead>
+      <th>Chain id</th>
+      <th>GR Name</th>
+      <th>GR Description</th>
+      <th>GR Amount</th>
+      <th>Status</th>
+      <th>Associated to</th>
+      <th>Select</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let gr of filteredList">
+        <td>{{gr.chainId}}</td>
+        <td>{{gr.grName}}</td>
+        <td>{{gr.description}}</td>
+        <td>{{gr.grAmount}}</td>
+        <td>{{gr.status}}</td>
+        <td>{{gr.associatedTo}}</td>
+        <td><button (click)="onSelect(gr.grName)" class="btn btn-outline-dark">
+         View Applications
+        </button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

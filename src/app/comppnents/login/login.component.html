@@ -1,0 +1,26 @@
+<!-- login.component.html -->
+
+<form class="login-form-custom" [formGroup]="loginForm" (ngSubmit)="login()">
+  <div id="outer" class="padding-height"></div>
+  <div class="row">
+    <div id="outer">
+      <div id="inner" class="column">
+        <img width="200px" height="200px" class="imgClass" src="../../../assets/nationalEmblem.jpeg" />
+      </div>
+      <h1 style="font-family: Tahoma;">TenderSheild</h1>
+    </div>
+  </div>
+
+  <input type="email" formControlName="email" placeholder="Email" />
+  <small style="color: red;" *ngIf="isFieldInvalid('email')">Email is required and must be valid</small>
+
+  <input type="password" formControlName="password" placeholder="Password" />
+  <small style="color: red;" *ngIf="isFieldInvalid('password')">Password is required</small>
+
+  <button type="submit" class="btnSubmit"[disabled]="loginForm.invalid">Login</button>
+  
+  <div class="padding-height-link"></div>
+  <div style="text-align: center">
+    <a class="four" [routerLink]="['/registration']" href="#">Not a user Click here!</a>
+  </div>
+</form>

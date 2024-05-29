@@ -1,0 +1,40 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+	<h1>Final Bidding form</h1>
+	<br>
+	<p >Enter the details for applying to <span style="font-weight: bold">{{routeParams["chainName"]}}</span><p>
+	<br>	
+	<div class="form-group">
+	    <label for="fromAddress">Enter Bid Amount</label>
+	    <input type="number" name="inputBidAmount" [(ngModel)]="inputBidAmount" class="form-control" id="fromAddress" aria-describedby="fromAddressHelp" >
+	    <small id="fromAddressHelp" class="form-text text-muted">
+	    	Place your final compitetive amount .
+	    </small>
+		<br>
+
+ 		<label for="fromAddress">Enter Estimated period ( in Days) to complete the task</label>
+		<input type="number" name="estimatedDays" [(ngModel)]="estimatedDays" class="form-control" id="fromAddress" aria-describedby="fromAddressHelp">
+		<small id="fromAddressHelp" class="form-text text-muted">
+	    	Please enter ETA in days considering buffer period too.
+	    </small>
+		<br>
+
+		<label for="fromAddress">Applicant Email</label>
+		<input [attr.disabled]="true" type="text" name="applicantEmail" [(ngModel)]="applicantEmail" class="form-control" id="fromAddress" aria-describedby="fromAddressHelp">
+		<small id="fromAddressHelp" class="form-text text-muted">
+	    	Registered applicant email.
+	    </small>
+		<br>
+		<label for="fromAddress">Applicant Firm name</label>
+		<input [attr.disabled]="true" type="text" name="firmName" [(ngModel)]="firmName" class="form-control" id="fromAddress" aria-describedby="fromAddressHelp">
+		<small id="fromAddressHelp" class="form-text text-muted">
+	    	Registered applicant firm name.
+	    </small>
+		<br><br>
+		  <button type="submit" (click)="applyForGr()" class="btn btn-primary">Submit Final Bid</button>
+		  <br><br>
+		</div>
+		
+	  
+	
+</div>

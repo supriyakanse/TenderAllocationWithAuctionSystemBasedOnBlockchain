@@ -1,0 +1,26 @@
+<app-nav-bar></app-nav-bar>
+<!-- <app-user-details></app-user-details> -->
+  <div class="container">
+      <h5>Notifications</h5>
+      <br>
+      
+        <div class="list-group" >
+            <a  class="list-group-item" *ngFor="let notification of notificationsList; let i = index"  [attr.data-index]="i">
+                <span class="glyphicon glyphicon-star-empty"></span><h4 class="name label label-info" style="min-width: 12px;
+                    display: inline-block; ">{{notification.title}}</h4> 
+                    <br>
+                    <span >{{notification.subTitle}}</span>
+                <br>
+                <span class="badge">{{notification.timeStamp}}</span> 
+                <br><br>
+                <button  *ngIf="!notification.seen"  (click)="carryOutOperation(notification.notificationType,notification.timeStamp,i)" class="btn btn-dark">
+                        {{ notification.notificationType == "finalBidding" ? 'Proceed' : 'Okay' }}
+                       </button>
+                </a>
+                
+                <br>
+        </div>  
+    
+      
+</div>
+

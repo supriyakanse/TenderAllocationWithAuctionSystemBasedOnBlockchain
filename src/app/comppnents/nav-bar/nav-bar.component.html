@@ -1,0 +1,21 @@
+
+
+<nav class="navbar navbar-dark bg-dark">
+    <img src="assets/nationalEmblem.jpeg" width="50" height="50" class="d-inline-block align-top" alt="">  
+    <a class="navbar-brand" routerLink="#">
+        &nbsp;TenderShield
+      </a>
+      <div>
+       
+        <button routerLink="/new/transaction" (click)="loginLogout()" class="btn btn-outline-light">
+          {{ authenticationService.isLoggedIn == true ? 'Logout' : 'Login' }}
+        </button>
+  
+      </div>
+    </nav>
+    
+<small style="color: grey; margin-left:40%;"> * All tenders has deadline of one month.</small>
+    
+    <br>
+    
+  
