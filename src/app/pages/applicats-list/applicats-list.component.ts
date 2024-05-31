@@ -51,7 +51,7 @@ export class ApplicatsListComponent implements OnInit {
 
   applyFilters(): void {
     this.filteredList = this.list.filter(gr => {
-      const bidAmountMatch = this.bidAmountFilter != null ? gr.bidAmount <= this.bidAmountFilter : true;
+      const bidAmountMatch = this.bidAmountFilter != null ? gr.bidAmount >= this.bidAmountFilter : true;
       const etaMatch = this.etaFilter != null ? gr.eta <= this.etaFilter : true;
       return bidAmountMatch && etaMatch;
     });
