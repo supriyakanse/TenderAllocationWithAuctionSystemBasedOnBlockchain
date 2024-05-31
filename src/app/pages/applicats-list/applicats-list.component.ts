@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FirebaseConfigService } from 'src/app/services/firebase-config.service';
 import { GRDetailsModel } from './../../utils/grDetailsModel';
 import { NotificationDataModel } from './../../utils/notificationDataModel';
-import emailjs from '@emailjs/browser';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -14,13 +13,18 @@ import { HttpClient } from '@angular/common/http';
 export class ApplicatsListComponent implements OnInit {
   list: GRDetailsModel[] = [];
   filteredList: GRDetailsModel[] = [];
-  i: number = 0;
-  chainName: string = "";  
   selectedApplicantsList: string[] = [];
   bidAmountFilter: number | null = null;
   etaFilter: number | null = null;
+  isFilterApplied: boolean = false;
+  chainName!: any;
 
-  constructor(private firebaseConfigService: FirebaseConfigService,private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private firebaseConfigService: FirebaseConfigService, 
+    private http: HttpClient, 
+    private router: Router, 
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => this.chainName = params['chainName']);
@@ -37,22 +41,57 @@ export class ApplicatsListComponent implements OnInit {
           applicantEmail: recvdData["data"]["sender"],
           bidAmount: recvdData["data"]["amount"],
           eta: recvdData["data"]['etaInDays'],
-          bidType: recvdData["data"]['bidType']
+          bidType: recvdData["data"]['bidType'],
+          selected: false
         } as GRDetailsModel;
       });
       this.applyFilters();
     });
   }
-  isAnyFinalBid(): boolean {
-    return this.filteredList.some(gr => gr.bidType === 'finalBid');
-  }
-  
+
   applyFilters(): void {
     this.filteredList = this.list.filter(gr => {
       const bidAmountMatch = this.bidAmountFilter != null ? gr.bidAmount <= this.bidAmountFilter : true;
       const etaMatch = this.etaFilter != null ? gr.eta <= this.etaFilter : true;
       return bidAmountMatch && etaMatch;
     });
+
+    if (this.isFilterApplied) {
+      console.log("Filter applied");
+      this.filteredList.forEach(gr => {
+        gr.selected = true;
+        if (!this.selectedApplicantsList.includes(gr.applicantEmail)) {
+          this.selectedApplicantsList.push(gr.applicantEmail);
+        }
+      });
+    } else {
+      console.log("Filter not applied");
+      this.filteredList.forEach(gr => {
+        gr.selected = false;
+        this.selectedApplicantsList = this.selectedApplicantsList.filter(email => email !== gr.applicantEmail);
+      });
+    }
+  }
+
+  updateFilterStatus(): void {
+    this.isFilterApplied = this.bidAmountFilter != null || this.etaFilter != null;
+    if (this.isFilterApplied) {
+      this.applyFilters();
+    }
+  }
+
+  toggleFilters(): void {
+    if (this.isFilterApplied) {
+      this.filteredList.forEach(gr => {
+        gr.selected = false;
+        this.selectedApplicantsList = this.selectedApplicantsList.filter(email => email !== gr.applicantEmail);
+      });
+      this.bidAmountFilter = null;
+      this.etaFilter = null;
+      this.isFilterApplied = false;
+    } else {
+      this.applyFilters();
+    }
   }
 
   onUpdateSelection(applicantEmail: string, index: number): void {
@@ -77,10 +116,6 @@ export class ApplicatsListComponent implements OnInit {
     console.log(this.selectedApplicantsList);
   }
 
-  isBidFinal(index: number): boolean {
-    return this.list[index].bidType !== "finalBid";
-  }
-
   async sendFinalBidPlacingNotification(): Promise<void> {
     var notificationDataModel: NotificationDataModel;
     console.log("Selected List length:" + this.selectedApplicantsList.length);
@@ -96,29 +131,15 @@ export class ApplicatsListComponent implements OnInit {
         "finalBidding"
       );
 
+      const emailPayload = {
+        emails: email,
+        sub: "TenderSheild : Approved for final bidding",
+        msg: "You have been selected for further process of GR: " + this.chainName + "\n Please login into System and submit final bid \n\n\n\n\n\n Regards, \n TenderSheild"
+      };
 
-const emailPayload = {
-  emails: this.selectedApplicantsList[this.i]  ,
-  sub:"TenderSheild : Approved for final bidding",
-  msg:"You have been selected for further process of GR: " + this.chainName+"\n Please login into System and submit final bid \n\n\n\n\n\n Regards, \n TenderSheild"
-};
-
-this.http.post('https://backend-w7jm.onrender.com/api/send-emails', emailPayload).subscribe(response => {
-  console.log(response);
-});
-
-
-      // Send email
-      // emailjs.init('4Ipk8O8JYwkZfZTqk');
-      // let response = await emailjs.send("service_23q7l2x", "template_e3xttfa", {
-      //   from_name: "TenderSheild",
-      //   to_name: this.selectedApplicantsList[this.i],
-      //   to_email:this.selectedApplicantsList[this.i],
-      //   from_email:"supriyak8403@gmail.com",
-      //   message: "Approved for final bidding.\n\n You have been selected for further process of GR: " + this.chainName + " \n\nPlease login into system and submit final bid.",
-      // });
-
-      // console.log("response from emailjs", response);
+      this.http.post('https://backend-w7jm.onrender.com/api/send-emails', emailPayload).subscribe(response => {
+        console.log(response);
+      });
 
       this.firebaseConfigService.sendNotificationToUser(email, notificationDataModel);
     }
