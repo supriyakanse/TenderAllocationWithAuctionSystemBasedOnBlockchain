@@ -12,13 +12,7 @@ export class SchedulerService {
 
   constructor(private firebaseConfigService: FirebaseConfigService) { }
 
-  startScheduler(): Observable<any> {
-    return timer(0, 20 * 60 * 1000).pipe(
-      switchMap(() => {
-        return this.removeAllocatedEntries();
-      })
-    );
-  }
+  
   startSchedulerForMonth(): Observable<any> {
     const oneMonthInMilliseconds = 30 * 24 * 60 * 60 * 1000;
     return timer(0, oneMonthInMilliseconds).pipe(

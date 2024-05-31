@@ -38,6 +38,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   public  downloadFile(url: string): void {
+    console.log("url of file   "+url);
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = () => {
       if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {

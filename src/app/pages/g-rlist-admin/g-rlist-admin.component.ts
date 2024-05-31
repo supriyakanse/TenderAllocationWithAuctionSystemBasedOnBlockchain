@@ -23,15 +23,7 @@ export class GRListAdminComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Start the scheduler when the component initializes
-    this.schedulerService.startScheduler().subscribe({
-      next: (message) => {
-        console.log(message); // Log any messages from the scheduler
-      },
-      error: (err) => {
-        console.error('Scheduler error:', err);
-      }
-    });
+    
 
     // Fetch all GRs initially
     this.firebaseConfigService.getAllGrs().subscribe(actionArray => {

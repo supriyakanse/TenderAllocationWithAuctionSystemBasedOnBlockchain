@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAeiWlO1wXd0rXlTpNDSWc5cX4yZIyGnZk",
-  authDomain: "tenderallocation.firebaseapp.com",
-  projectId: "tenderallocation",
-  storageBucket: "tenderallocation.appspot.com",
-  messagingSenderId: "761452669756",
-  appId: "1:761452669756:web:d8a08ca5101f79e8088c39"
+  apiKey: "AIzaSyCjsVnbOWVtv8rWL5-mjNPOtKgNM2slufU",
+  authDomain: "blockchainbasedtendersystem.firebaseapp.com",
+  projectId: "blockchainbasedtendersystem",
+  storageBucket: "blockchainbasedtendersystem.appspot.com",
+  messagingSenderId: "927969072356",
+  appId: "1:927969072356:web:01d34afffca588092908f1"
 };
 
 // Initialize Firebase
