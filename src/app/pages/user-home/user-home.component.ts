@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseConfigService } from 'src/app/services/firebase-config.service';
 import { GRDataModel } from 'src/app/utils/grDataModel';
 import { async } from '@firebase/util';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-user-home',
@@ -16,7 +17,7 @@ export class UserHomeComponent implements OnInit {
   list : GRDataModel[]=[];
   id:number = 0;
 
-  constructor(private firebaseConfigService: FirebaseConfigService,public authenticationService:AuthService,
+  constructor(private firebaseConfigService: FirebaseConfigService,private storage: AngularFireStorage,public authenticationService:AuthService,
     private route: ActivatedRoute,private router: Router,private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -35,27 +36,19 @@ export class UserHomeComponent implements OnInit {
         }as GRDataModel;
       });
     });
+  }public downloadFile(url: string): void {
+    this.storage.refFromURL(url).getDownloadURL().subscribe(downloadURL => {
+      const a = document.createElement('a');
+      a.href = downloadURL;
+      a.target = '_blank';  
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }, error => {
+      console.error('Download error:', error);
+    });
   }
-
-  public  downloadFile(url: string): void {
-    console.log("url of file   "+url);
-    const xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = () => {
-      if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-        const blobUrl = window.URL.createObjectURL(xmlHttp.response);
-        const e = document.createElement('a');
-        e.href = blobUrl;
-        e.download = blobUrl.substr(blobUrl.lastIndexOf('/') + 1);
-        document.body.appendChild(e);
-        e.click();
-        document.body.removeChild(e);
-      }
-    };
-    xmlHttp.responseType = 'blob';
-    xmlHttp.open('GET', url, true);
-    xmlHttp.send(null);
-  }
-
+  
   async applyForGr(chainName:string,bidAmount:number){
     this.router.navigate(["applicationForm", chainName, bidAmount]);
       console.log("Applying for GR :"+chainName);

@@ -66,6 +66,7 @@ var config = {
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(config),
+    AngularFirestoreModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
