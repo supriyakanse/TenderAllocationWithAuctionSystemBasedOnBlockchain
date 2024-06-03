@@ -35,13 +35,14 @@ import { NotificationComponent } from './pages/notification/notification.compone
 import { FinalBiddingComponent } from './pages/final-bidding/final-bidding.component';
 import { FinalizingWorkComponent } from './pages/finalizing-work/finalizing-work.component';
 
-var config = {
-  apiKey: "AIzaSyCjsVnbOWVtv8rWL5-mjNPOtKgNM2slufU",
-  authDomain: "blockchainbasedtendersystem.firebaseapp.com",
-  projectId: "blockchainbasedtendersystem",
-  storageBucket: "blockchainbasedtendersystem.appspot.com",
-  messagingSenderId: "927969072356",
-  appId: "1:927969072356:web:01d34afffca588092908f1"
+var config = { 
+  //shrutikak email firebase console
+apiKey: "AIzaSyAhML3O5o2xyBIIEig2JlxZd3vKbTa1Isw",
+authDomain: "projone-3313e.firebaseapp.com",
+projectId: "projone-3313e",
+storageBucket: "projone-3313e.appspot.com",
+messagingSenderId: "935197999442",
+appId: "1:935197999442:web:2fde17beed338d8edefa8b"
 };
 @NgModule({
   declarations: [

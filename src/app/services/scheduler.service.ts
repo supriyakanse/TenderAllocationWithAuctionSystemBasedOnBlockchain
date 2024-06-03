@@ -13,16 +13,15 @@ export class SchedulerService {
   constructor(private firebaseConfigService: FirebaseConfigService) { }
 
   
-  startSchedulerForMonth(): Observable<any> {
+  /*startSchedulerForMonth(): Observable<any> {
     const oneMonthInMilliseconds = 30 * 24 * 60 * 60 * 1000;
     return timer(0, oneMonthInMilliseconds).pipe(
       switchMap(() => {
         return this.removeAllocatedEntries();
       })
     );
-  }
+  }*/
   
-  // Method to remove entries with status "allocated"
   removeAllocatedEntries(): Observable<any> {
     return new Observable(observer => {
       this.firebaseConfigService.getAllGrs().subscribe(actionArray => {

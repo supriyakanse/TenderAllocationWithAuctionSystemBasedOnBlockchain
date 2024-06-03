@@ -64,14 +64,14 @@ export class CreateBlockComponent implements OnInit {
       window.alert("New G.R added successfully!"); 
 this.router.navigate(['/grListAdmin']) 
 
-this.schedulerService.startSchedulerForMonth().subscribe({
+/*this.schedulerService.startSchedulerForMonth().subscribe({
   next: (message) => {
     console.log(message); 
   },
   error: (err) => {
     console.error('Scheduler error:', err);
   }
-});
+});*/
     });
   }
 
